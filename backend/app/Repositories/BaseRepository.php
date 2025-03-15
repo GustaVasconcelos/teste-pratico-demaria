@@ -62,7 +62,6 @@ abstract class BaseRepository implements BaseRepositoryInterface
     public function restore(int $id): bool
     {
         $model = $this->model->onlyTrashed()->find($id);
-        
         if ($model) {
             return $model->restore(); 
         }

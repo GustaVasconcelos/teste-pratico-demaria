@@ -7,6 +7,8 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use App\Models\Task;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -47,6 +49,16 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
         });
+
+        Route::bind('user', function ($value) {
+            return User::withTrashed()->findOrFail($value); 
+        });
+        
+        Route::bind('task', function ($value) {
+            return Task::withTrashed()->findOrFail($value); 
+        });
+        
+        
     }
 
     /**
