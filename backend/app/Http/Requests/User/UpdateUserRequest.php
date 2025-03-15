@@ -2,39 +2,24 @@
 
 namespace App\Http\Requests\User;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class UpdateUserRequest extends FormRequest
+class UpdateUserRequest extends BaseFormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize(): bool
     {
-        return true; // Defina como 'true' se a autorização não for necessária para atualizar o usuário
+        return true; 
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules(): array
     {
         return [
-            'name' => 'sometimes|string|max:255', 
-            'email' => 'sometimes|email|unique:users,email,' . $this->route('user'), 
+            'name' => 'sometimes|string|max:255',
+            'email' => 'sometimes|email|unique:users,email,' . $this->route('user'),
             'password' => 'sometimes|string|min:8|confirmed',
         ];
     }
 
-    /**
-     * Get the validation messages for the request.
-     *
-     * @return array
-     */
     public function messages(): array
     {
         return [
@@ -43,7 +28,6 @@ class UpdateUserRequest extends FormRequest
             'email.unique' => 'Este email já está registrado.',
             'password.min' => 'A senha deve ter no mínimo 8 caracteres.',
             'password.confirmed' => 'As senhas não coincidem.',
-            'role.in' => 'O papel deve ser "admin" ou "user".',
         ];
     }
 }

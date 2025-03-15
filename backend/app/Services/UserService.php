@@ -49,6 +49,17 @@ class UserService
         return $this->responseFormatter->format('success', 'Usuário deletado com sucesso');
     }
 
+    public function restore(int $id)
+    {
+        $user = $this->userRepository->restore($id);
+
+        if (!$user) {
+            return $this->responseFormatter->format('not found', 'Usuário não encontrado ou não pode ser restaurado', null);
+        }
+
+        return $this->responseFormatter->format('success', 'Usuário restaurado com sucesso', $user);
+    }
+
     public function getById(int $id)
     {
         $user = $this->userRepository->show($id);
@@ -60,8 +71,13 @@ class UserService
         return $this->responseFormatter->format('success', 'Usuário recuperado com sucesso', $user);
     }
 
-    public function getAll(array $filters = [], array $sort = [], int $perPage = 15, int $page = 1)
+    public function getAll(array $data)
     {
+        $perPage = $data['perPage'] ?? null;
+        $page = $data['page'] ?? null;
+        $filters = $data['filters'] ?? [];
+        $sort = $data['sort'] ?? [];
+
         $users = $this->userRepository->all($filters, $sort, $perPage, $page);
 
         return $this->responseFormatter->format('success', 'Usuários recuperados com sucesso', $users);

@@ -16,7 +16,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
         $this->model = $model;
     }
 
-    public function all(array $filters = [], array $sort = [], int $perPage = 15, int $page = 1): LengthAwarePaginator
+    public function all(array $filters = [], array $sort = [], ?int $perPage = 15, ?int $page = 1): LengthAwarePaginator
     {
         $query = $this->model->newQuery();
 
@@ -57,6 +57,16 @@ abstract class BaseRepository implements BaseRepositoryInterface
     {
         $model = $this->model->findOrFail($id);
         return $model->delete();
+    }
+
+    public function restore(int $id): bool
+    {
+        $model = $this->model->onlyTrashed()->find($id);
+        
+        if ($model) {
+            return $model->restore(); 
+        }
+        return false;
     }
 
     public function show(int $id): ?Model

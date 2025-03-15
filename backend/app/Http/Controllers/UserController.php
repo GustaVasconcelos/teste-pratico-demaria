@@ -97,4 +97,19 @@ class UserController extends Controller
             ], 500);
         }
     }
+
+    public function restore($id): JsonResponse
+    {
+        try {
+            $response = $this->userService->restore($id);
+            $statusCode = $this->statusCodeMatcher->getStatusCode($response['status']);
+            return response()->json($response, $statusCode);
+        } catch (\Exception $e) {
+            Log::error("Error restoring user with ID {$id}: {$e->getMessage()}");
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Erro ao restaurar usuário. Por favor, tente novamente.'
+            ], 500);
+        }
+    }
 }

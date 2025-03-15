@@ -2,39 +2,24 @@
 
 namespace App\Http\Requests\User;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class CreateUserRequest extends FormRequest
+class CreateUserRequest extends BaseFormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize(): bool
     {
-        return true; // Defina como 'true' se a autorização não for necessária para criar um usuário
+        return true; 
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255', 
+            'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed', 
+            'password' => 'required|string|min:8|confirmed',
         ];
     }
 
-    /**
-     * Get the validation messages for the request.
-     *
-     * @return array
-     */
     public function messages(): array
     {
         return [
