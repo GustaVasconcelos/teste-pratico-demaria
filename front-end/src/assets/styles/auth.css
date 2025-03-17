@@ -1,0 +1,46 @@
+.card-container {
+  background-color: #fff;
+  box-shadow: var(--box-shadow);
+  max-width: 1000px; 
+  padding: 10px;
+}
+
+.card-login {
+  width: 380px;
+  border-radius: 12px;
+}
+
+.card-img-container {
+  height: 400px;
+  width: 100%;
+  border-radius: 12px;
+}
+
+.card-title {
+  color: var(--primary-color);
+}
+
+.form-label-custom {
+  border-bottom: 3px solid var(--primary-color);
+  padding-bottom: 2px;
+}
+
+.icon-custom {
+  color: var(--primary-color);
+}
+
+.btn-custom {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+.btn-custom:hover {
+  background-color: var(--primary-light);
+  border-color: var(--primary-light);
+  color: var(--text-color);
+}
+
+.forgot-password-link {
+  color: var(--primary-color);
+}

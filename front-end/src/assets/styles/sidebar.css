@@ -1,0 +1,115 @@
+.sidebar {
+  width: var(--sidebar-width); 
+  height: 100vh;
+  background: var(--sidebar-bg);
+  color: var(--text-color);
+  padding: 20px;
+  transition: width 0.3s ease, transform 0.3s ease; 
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--box-shadow);
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar.closed {
+  width: 80px; 
+}
+
+
+.nav {
+  list-style: none;
+  padding: 0;
+}
+
+.nav li {
+  margin: 15px 0;
+}
+
+.nav-item {
+  min-height: 47px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--primary-color);
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+  min-height: 27px;
+  cursor: pointer;
+}
+
+.nav-link:hover  {
+  background: var(--primary-light);
+  color: #fff;
+}
+
+.nav-link:hover .icon{
+  color: #fff; 
+}
+
+.icon {
+  font-size: 22px;
+  color: var(--primary-color);
+  transition: font-size 0.3s ease; 
+  min-width: 22px; 
+}
+
+.sidebar.closed .icon {
+  font-size: 22px; 
+}
+.toggle-btn, .logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--primary-color);
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background 0.3s ease, color 0.3s ease;
+  min-height: 47px; /* Mantém altura consistente */
+  width: 100%;
+  cursor: pointer;
+  border: none;
+  background: none;
+  white-space: nowrap; /* Evita que o texto quebre */
+}
+
+.toggle-btn:hover, .logout-btn:hover {
+  background: var(--primary-light);
+  color: #fff;
+}
+
+.toggle-btn:hover .icon, .logout-btn:hover .icon {
+  color: #fff;
+}
+
+/* Garante que os botões fiquem visíveis mesmo com a sidebar fechada */
+.sidebar.closed .toggle-btn,
+.sidebar.closed .logout-btn {
+  justify-content: center; /* Centraliza apenas o ícone */
+  width: 80px; /* Mesmo tamanho da sidebar fechada */
+  padding: 10px;
+}
+
+/* Esconde o texto quando a sidebar estiver fechada */
+/* .sidebar.closed .toggle-btn span,
+.sidebar.closed .logout-btn span {
+  display: none;
+} */
+
+.sidebar-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  width: 100%;
+}
