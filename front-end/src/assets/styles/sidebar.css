@@ -74,12 +74,13 @@
   padding: 10px;
   border-radius: 8px;
   transition: background 0.3s ease, color 0.3s ease;
-  min-height: 47px; /* Mantém altura consistente */
+  min-height: 47px;
   width: 100%;
   cursor: pointer;
   border: none;
   background: none;
-  white-space: nowrap; /* Evita que o texto quebre */
+  white-space: nowrap; 
+  margin-bottom: 5px;
 }
 
 .toggle-btn:hover, .logout-btn:hover {
@@ -91,25 +92,11 @@
   color: #fff;
 }
 
-/* Garante que os botões fiquem visíveis mesmo com a sidebar fechada */
 .sidebar.closed .toggle-btn,
 .sidebar.closed .logout-btn {
-  justify-content: center; /* Centraliza apenas o ícone */
-  width: 80px; /* Mesmo tamanho da sidebar fechada */
+  justify-content: center; 
+  width: 80px; 
   padding: 10px;
 }
 
-/* Esconde o texto quando a sidebar estiver fechada */
-/* .sidebar.closed .toggle-btn span,
-.sidebar.closed .logout-btn span {
-  display: none;
-} */
 
-.sidebar-footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  padding: 10px;
-  width: 100%;
-}

@@ -1,12 +1,11 @@
-.app-container {
-    display: flex;
-}
-  
-.content {
-    margin-left: 250px;
-    transition: margin-left 0.3s ease;
+.btn-default {
+  background-color: var(--primary-color);
+  transition: background 0.3s ease, color 0.3s ease;
+  border: none;
+  box-shadow: var(--box-shadow);
 }
 
-.sidebar.closed ~ .content {
-    margin-left: 80px;
+.btn-default:hover {
+  background: var(--primary-light);
+  color: #fff;
 }

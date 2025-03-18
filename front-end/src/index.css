@@ -6,6 +6,7 @@
   --sidebar-bg: #fff;
   --sidebar-width: 180px;
   --sidebar-collapsed-width: 80px;
+  --text-color-gray: #696969		;
 }
 
 * {
@@ -22,3 +23,4 @@ body {
   width: 100%;
   background-color: #f8f9fa;
 }
+

@@ -20,8 +20,20 @@
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
+  color: var(--text-color-gray);
+  position: relative;
 }
 
+.layout-title::after {
+  content: '';
+  position: absolute;
+  width: 140px;
+  height: 3px;
+  border-radius: 30px;
+  background-color: var(--primary-color);
+  left: 0;
+  bottom: -5px;
+}
 .layout-body {
   background: white;
   padding: 20px;

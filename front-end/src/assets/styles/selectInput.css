@@ -1,0 +1,18 @@
+.select-label {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: var(--text-color-gray);
+  position: relative;
+}
+
+.select-label::after {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 3px;
+  border-radius: 30px;
+  background-color: var(--primary-color);
+  left: 0;
+  bottom: -5px;
+}

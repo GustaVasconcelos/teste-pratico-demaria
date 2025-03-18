@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider } from './contexts/AuthContext';
 import { LoaderProvider } from './contexts/LoaderContext'; 
 import Loader from './components/Loader'; 
-
+import './App.css';
 const App = () => {
   return (
     <Router>
