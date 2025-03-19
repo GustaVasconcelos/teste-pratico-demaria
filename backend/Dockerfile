@@ -1,7 +1,7 @@
 FROM php:7.3-fpm
 
-RUN echo "\e[1;33mInstall COMPOSER\e[0m"
-RUN cd /tmp \
+RUN echo "\e[1;33mInstall COMPOSER\e[0m" \
+    && cd /tmp \
     && curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer
 
@@ -11,8 +11,8 @@ RUN apt-get update
 
 RUN apt-get -y install apt-utils nano wget dialog vim
 
-RUN echo "\e[1;33mInstall important libraries\e[0m"
-RUN apt-get -y install --fix-missing \
+RUN echo "\e[1;33mInstall important libraries\e[0m" \
+    && apt-get -y install --fix-missing \
     apt-utils \
     build-essential \
     git \
@@ -28,7 +28,7 @@ RUN apt-get -y install --fix-missing \
     libicu-dev \
     libonig-dev \
     libxml2-dev
-    
+
 RUN apt-get install -y libpq-dev \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pdo pdo_pgsql pgsql
@@ -37,10 +37,13 @@ WORKDIR /var/www
 
 COPY . /var/www
 
-RUN composer install --no-interaction --prefer-dist
+COPY .docker/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
 EXPOSE 8000
 
-CMD php artisan serve --host=0.0.0.0 --port=8000
+ENTRYPOINT ["/entrypoint.sh"]
+
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
