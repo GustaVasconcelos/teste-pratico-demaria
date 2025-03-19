@@ -23,12 +23,15 @@ cd backend
 
 Preencha o arquivo .env com as configurações do banco de dados e outras variáveis necessárias. Utilize o arquivo .env.example como base.
 
+```bash
 DB_CONNECTION=pgsql
 DB_HOST=db
 DB_PORT=5432
 DB_DATABASE=todo_list
 DB_USERNAME=user
 DB_PASSWORD=password
+```
+
 
 Após preencher as configurações, rode o comando abaixo para construir e iniciar os containers:
 
