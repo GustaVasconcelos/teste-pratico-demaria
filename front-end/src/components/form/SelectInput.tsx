@@ -8,21 +8,21 @@ type OptionType = {
 
 type SelectInputProps = {
   options: OptionType[];
-  defaultValue: OptionType;
+  value: string; 
   onChange: (value: string) => void;
   label?: string;
   className?: string; 
 };
 
-const SelectInput = ({ options, defaultValue, onChange, label, className }: SelectInputProps) => {
+const SelectInput = ({ options, value, onChange, label, className }: SelectInputProps) => {
   return (
     <div className={className}>  
       {label && <label className="form-label select-label">{label}</label>}
       <Select
         options={options}
-        defaultValue={defaultValue}
+        value={options.find(option => option.value === value)} 
         onChange={(selectedOption: SingleValue<OptionType>) =>
-          selectedOption && onChange(selectedOption.value)
+          selectedOption && onChange(selectedOption.value) 
         }
         noOptionsMessage={() => "Nenhuma opção encontrada"}
       />

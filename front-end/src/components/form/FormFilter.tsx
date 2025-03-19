@@ -7,7 +7,7 @@ type FormFilterProps = {
 const FormFilter = ({ children }: FormFilterProps) => {
   return (
     <form className="mb-3">
-      <div className="d-flex align-items-end">
+      <div className="row d-flex align-items-end">
         {children} 
       </div>
     </form>

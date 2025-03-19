@@ -3,9 +3,14 @@
   transition: background 0.3s ease, color 0.3s ease;
   border: none;
   box-shadow: var(--box-shadow);
+  color: #fff;
 }
 
 .btn-default:hover {
   background: var(--primary-light);
   color: #fff;
+}
+
+.form-container {
+  margin: 0px !important;
 }

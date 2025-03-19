@@ -16,7 +16,6 @@ class UpdateTaskRequest extends BaseFormRequest
         return [
             'title' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'due_date' => 'nullable|date',
             'status' => 'nullable|in:pendente,concluída', 
         ];
     }

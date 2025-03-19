@@ -15,13 +15,13 @@ import { entities } from "../constants/entities";
 type LoginField = {
   id: string;
   label: string;
-  type: "email" | "password" | "text";
+  type: "email" | "password" | "text" | "textarea";
   placeholder: string;
   icon: React.ComponentType<any>;
 };
 
 const Login = () => {
-  const { post, formErrors, setFormErrors } = useBaseService();
+  const { post, formErrors } = useBaseService();
   const { login } = useAuth();  
   const { formData, handleChange } = useForm({ email: "", password: "" });
   const navigate = useNavigate();
@@ -39,7 +39,6 @@ const Login = () => {
       }
     } catch (err) {
       console.error(err);
-      setFormErrors({ general: "Erro ao fazer login. Tente novamente." });
     }
   };
 
@@ -52,7 +51,7 @@ const Login = () => {
               {loginFields[0].fields.map((field: LoginField, index: number) => (
                 <Input
                   key={index}
-                  type={field.type as "email" | "password" | "text"}
+                  type={field.type as "email" | "password" | "text" | "textarea"}
                   label={field.label}
                   value={formData[field.id]} 
                   onChange={(e) => handleChange(field.id, e.target.value)} 

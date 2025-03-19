@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 
 class Task extends Model
 {
@@ -26,9 +27,13 @@ class Task extends Model
         'deleted_at', 
     ];
 
-    public function newQuery($excludeDeleted = true)
+    protected static function boot()
     {
-        return parent::newQuery()->withTrashed();
+        parent::boot();
+
+        static::addGlobalScope('withTrashed', function (Builder $builder) {
+            $builder->withTrashed();
+        });
     }
 }
 

@@ -3,11 +3,12 @@ import { IconType } from 'react-icons';
 interface FieldProps {
   id: string;
   label: string;
-  type: "email" | "password" | "text";  
+  type: "email" | "password" | "text" | "textarea";  
   placeholder: string;
   icon: IconType;
   fullWidth?: boolean;
   isMulti?: boolean;
+  className?: string;
 }
 
 const createField = ({
@@ -18,6 +19,7 @@ const createField = ({
   icon,
   fullWidth = false,
   isMulti = false,
+  className = ''
 }: FieldProps) => {
   return {
     id,
@@ -27,6 +29,7 @@ const createField = ({
     icon,
     fullWidth,
     isMulti,
+    className
   };
 };
 

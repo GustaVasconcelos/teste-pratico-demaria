@@ -19,9 +19,10 @@ abstract class BaseRepository implements BaseRepositoryInterface
     public function all(array $filters = [], array $sort = [], ?int $perPage = 15, ?int $page = 1): LengthAwarePaginator
     {
         $query = $this->model->newQuery();
-
         foreach ($filters as $key => $value) {
-            if (is_array($value)) {
+            if ($key === 'deleted_at' && $value == 1) {
+                $query->whereNotNull($key);
+            } elseif (is_array($value)) {
                 $query->whereIn($key, $value);
             } else {
                 $query->where($key, $value);

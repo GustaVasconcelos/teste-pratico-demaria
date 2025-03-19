@@ -1,5 +1,4 @@
 import request from '../utils/request';
-import qs from 'qs';
 import { NavigateFunction } from 'react-router-dom';
 
 interface RequestData {
@@ -10,16 +9,19 @@ interface RequestData {
 
 const baseService = {
     async get(url: string, data: RequestData = {}, navigate?: NavigateFunction) {
-        const query = qs.stringify(
-            {
-                filters: data.filters,
-                page: data.page,
-                perPage: data.perPage,
-            },
-            { encode: false }
-        );
-
-        return request("get", `${url}${query ? '?' + query : ''}`, {}, navigate);
+        const params = new URLSearchParams();
+        if (data) {
+            for (const [key, value] of Object.entries(data)) {
+                if (Array.isArray(value)) {
+                    value.forEach(val => params.append(key, val)); 
+                } else {
+                    params.append(key, value);
+                }
+            }
+        }
+        const queryString = params.toString();
+        const finalUrl = `${url}${queryString ? '?' + queryString : ''}`;
+        return request("get", finalUrl, {}, navigate);
     },
 
     async getByColumn(url: string, navigate?: NavigateFunction) {

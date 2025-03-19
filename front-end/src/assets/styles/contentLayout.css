@@ -2,18 +2,21 @@
   display: flex;
   width: 100vw;
   height: 100vh;
+  position: relative; 
+  margin-top: 15px;
 }
 
 .layout-content {
-  margin-left: 180px;
+  margin-left: 180px; 
   padding: 20px;
   width: 100%;
   transition: margin-left 0.3s ease;
   background-color: #f8f9fa;
+  padding-top: 60px;
 }
 
 .sidebar.closed ~ .layout-content {
-  margin-left: 80px;
+  margin-left: 80px; /
 }
 
 .layout-title {
@@ -34,9 +37,25 @@
   left: 0;
   bottom: -5px;
 }
+
 .layout-body {
   background: white;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .layout-container {
+    flex-direction: column; 
+  }
+
+  .layout-content {
+    margin-left: 0; 
+    padding-top: 80px; 
+  }
+
+  .sidebar.closed ~ .layout-content {
+    margin-left: 0; 
+  }
 }

@@ -16,8 +16,6 @@ class CreateTaskRequest extends BaseFormRequest
         return [
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'due_date' => 'nullable|date',
-            'status' => 'required|in:pendente,concluída', 
         ];
     }
 
@@ -25,8 +23,6 @@ class CreateTaskRequest extends BaseFormRequest
     {
         return [
             'title.required' => 'O título da tarefa é obrigatório.',
-            'status.required' => 'O status da tarefa é obrigatório.',
-            'status.in' => 'O status da tarefa deve ser um dos seguintes: pendente, concluída.',
         ];
     }
 }

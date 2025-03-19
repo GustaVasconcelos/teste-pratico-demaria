@@ -11,7 +11,7 @@ const useErrorHandling = (navigate: NavigateFunction) => {
         }
 
         if (error.status === 404) {
-            navigate('/dashboard');
+            navigate('/login');
         }
     };
 

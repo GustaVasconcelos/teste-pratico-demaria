@@ -1,0 +1,54 @@
+.topbar {
+  width: 100%;
+  height: 60px;
+  background: var(--topbar-bg);
+  color: var(--text-color);
+  position: fixed;
+  top: 5px;
+  left: 0;
+  z-index: 1999;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: var(--box-shadow);
+  transition: width 0.3s ease, left 0.3s ease;
+  border-radius: 10px;
+}
+
+.topbar.open {
+  width: calc(99% - var(--sidebar-width));
+  left: calc(10px + var(--sidebar-width));
+}
+
+.topbar.closed {
+  width: 95%;
+  left: 90px;
+}
+
+.topbar .toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--primary-color);
+  font-size: 18px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+@media (max-width: 768px) {
+  .topbar {
+    width: 97%;
+    left: 0;
+  }
+
+  .topbar.open {
+    width: calc(95% - var(--sidebar-width));
+    left: calc(10px + var(--sidebar-width));
+  }
+
+  .topbar.closed {
+    width: 97%;
+    left: 1.5%;
+  }
+}

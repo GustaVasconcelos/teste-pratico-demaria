@@ -16,19 +16,14 @@ const Signup = () => {
     name: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    password_confirmation: ''
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const response = await post(entities.users.create, {
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-        password_confirmation: formData.confirmPassword
-      });
+      const response = await post(entities.users.create, formData);
 
       if (response) {
         resetForm();

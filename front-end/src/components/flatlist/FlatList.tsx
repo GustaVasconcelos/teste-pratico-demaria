@@ -1,17 +1,21 @@
 import FlatItem from "./FlatItem"; 
 
-interface FlatListProps {
-  tasks: {
-    id: string;
-    title: string;
-    description: string;
-    status: "pendente" | "completa";
-  }[];
-  onEdit: (id: string) => void;
-  onDelete: (id: string) => void;
+interface Task {
+  id: string;
+  title: string;
+  description: string;
+  status: "pendente" | "concluída";
 }
 
-const FlatList = ({ tasks, onEdit, onDelete }: FlatListProps) => {
+interface FlatListProps {
+  tasks: Task[];
+  onEdit: (task: Task) => void;
+  onDelete: (task: Task) => void;
+  onMarkAsCompleted: (task: Task) => void;  
+  onRestore: (task: Task) => void; 
+}
+
+const FlatList = ({ tasks, onEdit, onDelete, onMarkAsCompleted, onRestore }: FlatListProps) => {
   return (
     <div className="list-group">
       {tasks.length === 0 ? (
@@ -20,7 +24,7 @@ const FlatList = ({ tasks, onEdit, onDelete }: FlatListProps) => {
         </div>
       ) : (
         tasks.map((task) => (
-          <FlatItem key={task.id} task={task} onEdit={onEdit} onDelete={onDelete} />
+          <FlatItem key={task.id} task={task} onEdit={() => onEdit(task)} onDelete={() => onDelete(task)} onMarkAsCompleted={() => onMarkAsCompleted(task)} onRestore={() => onRestore(task)}/>
         ))
       )}
     </div>

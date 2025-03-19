@@ -15,14 +15,20 @@ class TaskRepository extends BaseRepository implements TaskRepositoryInterface
     public function getTasksByUserId(array $filters, int $userId)
     {
         $query = $this->model->where('user_id', $userId);
-    
-        if (!empty($filters)) {
-            if (isset($filters['status'])) {
-                $query->where('status', $filters['status']);
-            }
-    
+
+        if (isset($filters['deleted_at']) && $filters['deleted_at'] === 'not_null') {
+            $query->withTrashed(); 
+            $query->whereNotNull('deleted_at'); 
+        } else {
+            $query->withoutTrashed();
         }
-    
+
+        foreach ($filters as $key => $value) {
+            if ($key !== 'deleted_at') { 
+                $query->where($key, $value);
+            }
+        }
+
         return $query->get();
     }
 }

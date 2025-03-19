@@ -9,6 +9,8 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Database\Eloquent\Builder;
+
 class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
@@ -47,9 +49,13 @@ class User extends Authenticatable implements JWTSubject
         ];
     }
 
-    public function newQuery($excludeDeleted = true)
+    protected static function boot()
     {
-        return parent::newQuery()->withTrashed();
+        parent::boot();
+
+        static::addGlobalScope('withTrashed', function (Builder $builder) {
+            $builder->withTrashed();
+        });
     }
 }
 

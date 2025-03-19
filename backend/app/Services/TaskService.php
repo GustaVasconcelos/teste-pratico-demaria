@@ -71,9 +71,7 @@ class TaskService
 
     public function getTasksByUser(array $data, int $userId)
     {
-        $filters = $data['filters'] ?? [];
-
-        $tasks = $this->taskRepository->getTasksByUserId($filters, $userId);
+        $tasks = $this->taskRepository->getTasksByUserId($data, $userId);
 
         return $this->responseFormatter->format('success', 'Tarefas recuperadas com sucesso', $tasks);
     }
