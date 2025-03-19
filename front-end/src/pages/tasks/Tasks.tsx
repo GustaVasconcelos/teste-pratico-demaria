@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { FaPlus } from "react-icons/fa"; 
 import ContentLayout from "../../layout/ContentLayout";
 import SelectInput from "../../components/form/SelectInput";
 import FormFilter from "../../components/form/FormFilter";
@@ -9,9 +8,10 @@ import { useLoader } from "../../hooks/useLoader";
 import Title from "../../layout/Title";
 import "../../assets/styles/task.css";
 import { entities } from "../../constants/entities";
-import FlatList from "../../components/flatlist/FlatList";
 import { useNavigate } from "react-router-dom";
 import ConfirmationModal from "../../components/modals/ConfirmationModal";
+import DataTable from "../../components/table/DataTable"; 
+import { Add, Edit, Delete, CheckCircle, Undo } from "@mui/icons-material";
 
 interface Task {
   id: string;
@@ -45,10 +45,14 @@ const Tasks = () => {
   const { get, del, post, put } = useBaseService(); 
   const { showLoader, hideLoader } = useLoader();
   const navigate = useNavigate();
+  
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(0); 
+  const [rowsPerPage, setRowsPerPage] = useState(5); 
 
   useEffect(() => {
     fetchTasks();
-  }, [user?.id, filterStatus, filterDeletedAt]);
+  }, [user?.id, filterStatus, filterDeletedAt, page, rowsPerPage]);
 
   const fetchTasks = async () => {
     if (!user?.id) return;
@@ -58,17 +62,29 @@ const Tasks = () => {
       const filters = {
         status: filterStatus,
         deleted_at: filterDeletedAt,
+        page: page + 1, 
+        perPage: rowsPerPage, 
       };
 
       const response = await get(entities.users.tasks.get(user.id), filters);
       if (response && response.result) {
-        setTasks(response.result);
+        setTasks(response.result.data); 
+        setTotal(response.result.total);
       }
     } catch (error) {
       console.error("Erro ao buscar tarefas:", error);
     } finally {
       hideLoader();
     }
+  };
+
+  const handleChangePage = (_event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
   };
 
   const handleEdit = (task: Task) => {
@@ -82,12 +98,12 @@ const Tasks = () => {
 
   const handleMarkAsCompleted = (task: Task) => {
     setTaskToMarkCompleted(task);
-    setShowCompletionModal(true); 
+    setShowCompletionModal(true);
   };
 
   const handleRestore = (task: Task) => {
     setTaskToRestore(task);
-    setShowRestoreModal(true); 
+    setShowRestoreModal(true);
   };
 
   const confirmMarkAsCompleted = async () => {
@@ -95,7 +111,7 @@ const Tasks = () => {
 
     try {
       await put(entities.users.tasks.update(user.id, taskToMarkCompleted.id), { status: "concluída" });
-      setShowCompletionModal(false); 
+      setShowCompletionModal(false);
       fetchTasks();
     } catch (error) {
       console.error("Erro ao marcar tarefa como concluída:", error);
@@ -126,6 +142,44 @@ const Tasks = () => {
     }
   };
 
+  const columns = [
+    { id: "title", label: "Título" },
+    { id: "description", label: "Descrição" },
+    { id: "status", label: "Status" },
+  ];
+
+  const actions: Array<{
+    label: string;
+    onClick: (item: Task) => void;
+    icon: React.ReactNode;
+    condition: (item: Task) => boolean;
+  }> = [
+    {
+      label: "Editar",
+      onClick: handleEdit,
+      icon: <Edit color="primary" fontSize="small" />, 
+      condition: (item) => !item.deleted_at,
+    },
+    {
+      label: "Excluir",
+      onClick: handleDelete,
+      icon: <Delete color="error" fontSize="small" />,
+      condition: (item) => !item.deleted_at,
+    },
+    {
+      label: "Restaurar",
+      onClick: handleRestore,
+      icon: <Undo color="secondary" fontSize="small" />, 
+      condition: (item) => !!item.deleted_at,
+    },
+    {
+      label: "Concluir",
+      onClick: handleMarkAsCompleted,
+      icon: <CheckCircle style={{ color: "green" }} fontSize="small" />, 
+      condition: (item) => !item.deleted_at,
+    },
+  ];
+
   return (
     <ContentLayout title="Minhas Tarefas" showBackButton={true}>
       <FormFilter>
@@ -148,17 +202,20 @@ const Tasks = () => {
 
       <Title
         title="Minhas Tarefas"
-        linkIcon={<FaPlus />}
+        linkIcon={<Add  />}
         linkText="Adicionar Tarefa"
         linkHref="/tarefas/criar"
       />
 
-      <FlatList
-        tasks={tasks}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-        onMarkAsCompleted={handleMarkAsCompleted}
-        onRestore={handleRestore}
+      <DataTable
+        rows={tasks}
+        columns={columns}
+        actions={actions}
+        totalItems={total}
+        page={page}
+        rowsPerPage={rowsPerPage}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
       />
 
       <ConfirmationModal

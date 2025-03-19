@@ -14,6 +14,9 @@ class TaskRepository extends BaseRepository implements TaskRepositoryInterface
 
     public function getTasksByUserId(array $filters, int $userId)
     {
+        $page = $filters['page'] ?? 1; 
+        $perPage = $filters['perPage'] ?? 10; 
+
         $query = $this->model->where('user_id', $userId);
 
         if (isset($filters['deleted_at']) && $filters['deleted_at'] === 'not_null') {
@@ -24,11 +27,12 @@ class TaskRepository extends BaseRepository implements TaskRepositoryInterface
         }
 
         foreach ($filters as $key => $value) {
-            if ($key !== 'deleted_at') { 
+            if ($key !== 'deleted_at' && $key !== 'page' && $key !== 'perPage') { 
                 $query->where($key, $value);
             }
         }
 
-        return $query->get();
+        return $query->paginate($perPage, ['*'], 'page', $page);
     }
+
 }
