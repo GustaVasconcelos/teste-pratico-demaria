@@ -5,10 +5,6 @@ if [ ! -f .env ]; then
     cp .env.example .env
 fi
 
-if [ ! -f .env ]; then
-    echo "Arquivo .env não encontrado, criando com a chave"
-    cp .env.example .env
-fi
 composer install 
 
 sleep 3
