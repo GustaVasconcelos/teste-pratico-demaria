@@ -12,10 +12,7 @@ fi
 
 php artisan key:generate
 
-if [ -z "$JWT_SECRET" ]; then
-    echo "JWT_SECRET não encontrado, gerando chave JWT..."
-    php artisan jwt:secret
-fi
+php artisan jwt:secret
 
 php artisan migrate
 

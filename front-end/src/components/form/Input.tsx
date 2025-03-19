@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 interface InputProps {
   type: "email" | "password" | "text" | "textarea";  
@@ -25,12 +25,23 @@ const Input: React.FC<InputProps> = ({
   rows = 0,
   className = "",
 }) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleIconClick = () => {
+    if (type === "password") {
+      setShowPassword(!showPassword);
+    }
+  };
+
   return (
     <div className={`mb-3 col-12 ${className}`}> 
       <label className="form-label fw-semibold form-label-custom">{label}</label>
       <div className="position-relative">
         {Icon && (
-          <Icon className="position-absolute top-50 start-0 translate-middle-y ms-3 icon-custom" />
+          <Icon
+            className="position-absolute top-50 start-0 translate-middle-y ms-3 icon-custom"
+            onClick={handleIconClick}
+          />
         )}
         {type === "textarea" ? (
           <textarea
@@ -43,7 +54,7 @@ const Input: React.FC<InputProps> = ({
           />
         ) : (
           <input
-            type={type}
+            type={type === "password" && showPassword ? "text" : type} 
             className={`form-control ps-5 ${error ? "border border-danger" : ""}`}
             placeholder={placeholder}
             value={value}

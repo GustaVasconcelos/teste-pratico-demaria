@@ -21,6 +21,12 @@ Entre na pasta do backend:
 cd backend
 ```
 
+rode o comando abaixo para construir e iniciar os containers:
+
+```bash
+docker-compose up -d --build
+```
+
 Preencha o arquivo .env com as configurações do banco de dados e outras variáveis necessárias. Utilize o arquivo .env.example como base.
 
 ```bash
@@ -33,18 +39,18 @@ DB_PASSWORD=password
 ```
 
 
-Após preencher as configurações, rode o comando abaixo para construir e iniciar os containers:
+### **3. Configurar o Ambiente do front-end**
+
+saia da pasta backend:
 
 ```bash
-docker-compose up -d --build
+cd ..
 ```
-
-### **3. Configurar o Ambiente do front-end**
 
 Entre na pasta do frontend:
 
 ```bash
-cd frontend
+cd front-end
 ```
 
 Construa e inicie o container do frontend com o comando:
