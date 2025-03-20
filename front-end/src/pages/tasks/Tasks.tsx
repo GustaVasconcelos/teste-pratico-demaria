@@ -149,9 +149,7 @@ const Tasks = () => {
     { id: "description", label: "Descrição" },
     { id: "status", label: "Status" },
   ];
-  useEffect(() => {
-    console.log(tasks)
-  }, [tasks])
+
   const actions: Array<{
     label: string;
     onClick: (item: Task) => void;
