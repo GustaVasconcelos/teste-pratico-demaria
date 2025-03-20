@@ -147,7 +147,9 @@ const Tasks = () => {
     { id: "description", label: "Descrição" },
     { id: "status", label: "Status" },
   ];
-
+  useEffect(() => {
+    console.log(tasks)
+  }, [tasks])
   const actions: Array<{
     label: string;
     onClick: (item: Task) => void;
@@ -176,7 +178,7 @@ const Tasks = () => {
       label: "Concluir",
       onClick: handleMarkAsCompleted,
       icon: <CheckCircle style={{ color: "green" }} fontSize="small" />, 
-      condition: (item) => !item.deleted_at,
+      condition: (item) => !item.deleted_at && item.status.toLowerCase() != 'concluída'
     },
   ];
 
