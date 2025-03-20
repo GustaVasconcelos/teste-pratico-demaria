@@ -36,12 +36,15 @@ WORKDIR /var/www
 
 COPY . /var/www
 
-RUN composer install --no-interaction --prefer-dist
+RUN chown -R root:root /var/www \
+    && chmod -R 777 /var/www
 
 COPY .docker/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+USER root
+
+RUN composer install --no-interaction --prefer-dist
 
 EXPOSE 8000
 
