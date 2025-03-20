@@ -63,7 +63,6 @@ class TaskService
         $page = $data['page'] ?? null;
         $filters = $data['filters'] ?? [];
         $sort = $data['sort'] ?? [];
-
         $tasks = $this->taskRepository->all($filters, $sort, $perPage, $page);
 
         return $this->responseFormatter->format('success', 'Tarefas recuperadas com sucesso', $tasks);
@@ -75,6 +74,7 @@ class TaskService
         $page = $data['page'] ?? null;
         $filters = $data['filters'] ?? [];
         $sort = $data['sort'] ?? [];
+        $filters['user_id'] = $userId;
 
         $tasks = $this->taskRepository->getTasksByUserId($filters, $sort, $perPage, $page, $userId);
 
