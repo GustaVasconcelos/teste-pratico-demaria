@@ -38,6 +38,23 @@ DB_USERNAME=user
 DB_PASSWORD=password
 ```
 
+Entre no bash da aplicação laravel
+
+```bash
+docker exec -it laravel_app bash
+```
+
+Rode as migrations
+
+```bash
+php artisan migrate
+```
+
+Após rodar as migrations, saia do terminal
+
+```bash
+exit
+```
 
 ### **3. Configurar o Ambiente do front-end**
 
