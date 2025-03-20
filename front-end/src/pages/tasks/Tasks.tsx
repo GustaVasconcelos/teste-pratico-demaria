@@ -59,14 +59,16 @@ const Tasks = () => {
 
     showLoader();
     try {
-      const filters = {
-        status: filterStatus,
-        deleted_at: filterDeletedAt,
+      const params = {
+        filters: {
+            status: filterStatus,
+            deleted_at: filterDeletedAt
+        },
         page: page + 1, 
-        perPage: rowsPerPage, 
-      };
+        perPage: rowsPerPage,
+    };
 
-      const response = await get(entities.users.tasks.get(user.id), filters);
+      const response = await get(entities.users.tasks.get(user.id), params);
       if (response && response.result) {
         setTasks(response.result.data); 
         setTotal(response.result.total);

@@ -71,7 +71,12 @@ class TaskService
 
     public function getTasksByUser(array $data, int $userId)
     {
-        $tasks = $this->taskRepository->getTasksByUserId($data, $userId);
+        $perPage = $data['perPage'] ?? null;
+        $page = $data['page'] ?? null;
+        $filters = $data['filters'] ?? [];
+        $sort = $data['sort'] ?? [];
+
+        $tasks = $this->taskRepository->getTasksByUserId($filters, $sort, $perPage, $page, $userId);
 
         return $this->responseFormatter->format('success', 'Tarefas recuperadas com sucesso', $tasks);
     }
