@@ -36,13 +36,14 @@ WORKDIR /var/www
 
 COPY . /var/www
 
-RUN chown -R root:root /var/www \
+RUN usermod -u 1000 www-data \
+    && chown -R www-data:www-data /var/www \
     && chmod -R 777 /var/www
 
 COPY .docker/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-USER root
+USER www-data
 
 RUN composer install --no-interaction --prefer-dist
 
